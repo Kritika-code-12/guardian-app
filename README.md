@@ -2,6 +2,9 @@
 
 The **Guardian App** is a simple and responsive web application designed to help women during emergencies. It provides quick access to a siren alert and is optimized for mobile use.
 
+## 🔗 Live Demo
+Visit the app: [https://kritika-code-12.github.io/guardian-app/](https://kritika-code-12.github.io/guardian-app/)
+
 ## ✨ Features
 - Emergency siren button to attract attention
 - Minimal and fast UI for quick access
