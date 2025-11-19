@@ -113,7 +113,7 @@ callBtn.addEventListener('click', () => {
 function showAlert(title, message, iconClass = 'fa-check-circle', iconColorClass = 'green-500') {
   modalTitle.textContent = title;
   modalMessage.textContent = message;
-  modalIcon.className = `fas ${iconClass} text-5xl mb-4`;
+  modalIcon.className = `fas ${iconClass} text-5xl mb-4 ${iconClass === 'fa-phone-alt' ? '-scale-x-100' : ''}`;
 
   const colors = ['green-500', 'blue-500', 'indigo-500', 'red-500', 'gray-500'];
   colors.forEach(c => modalIcon.classList.remove(`text-${c}`));
@@ -209,4 +209,5 @@ addContactBtn.addEventListener('click', () => {
 document.addEventListener('DOMContentLoaded', () => {
   updateTime();
   loadContacts();
+
 });
