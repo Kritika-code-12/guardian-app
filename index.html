@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Guardian - Personal Safety</title>
+
+  <!-- Tailwind & Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css" />
+  <script src="script.js" defer></script>
+</head>
+<body class="bg-light-bg">
+  <div id="app-container" class="w-full max-w-md mx-auto bg-white min-h-screen shadow-2xl">
+    <!-- Home Screen -->
+    <section id="home-screen" class="flex flex-col min-h-screen p-6 pb-24">
+      <header class="flex justify-between items-center mb-6">
+        <div>
+          <h1 class="text-2xl font-bold text-secondary-color">Guardian</h1>
+          <p id="greeting" class="text-gray-500">Stay safe and aware</p>
+        </div>
+        <div class="flex items-center text-secondary-color">
+          <i class="fas fa-map-marker-alt mr-2 text-primary-color"></i>
+          <span id="location-text" class="text-sm font-medium">Kanpur, UP</span>
+        </div>
+      </header>
+
+      <main class="flex flex-col items-center justify-center text-center min-h-[300px]">
+        <button id="sos-btn" class="sos-button flex items-center justify-center text-white flex-col">
+          <span class="text-4xl font-bold">SOS</span>
+          <span class="text-sm opacity-90">HOLD FOR 3 SEC</span>
+        </button>
+        <p id="sos-status" class="text-secondary-color font-medium h-6 mt-6 transition-opacity duration-300"></p>
+      </main>
+
+      <div class="grid grid-cols-3 gap-4 text-center">
+        <button id="siren-btn" class="feature-card bg-light-bg p-4 rounded-2xl">
+          <i class="fas fa-bullhorn text-3xl text-primary-color"></i>
+          <p class="text-sm font-semibold text-secondary-color mt-2">Siren</p>
+        </button>
+        <button id="track-btn" class="feature-card bg-light-bg p-4 rounded-2xl">
+          <i class="fas fa-route text-3xl text-primary-color"></i>
+          <p class="text-sm font-semibold text-secondary-color mt-2">Track Me</p>
+        </button>
+        <button id="call-btn" class="feature-card bg-light-bg p-4 rounded-2xl">
+          <i class="fas fa-phone-alt text-3xl text-primary-color rotate-90"></i>
+          <p class="text-sm font-semibold text-secondary-color mt-2">Call Police</p>
+        </button>
+      </div>
+    </section>
+
+    <!-- Contacts Screen -->
+    <section id="contacts-screen" class="hidden p-6 pb-24">
+      <header class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold text-secondary-color">Emergency Contacts</h1>
+        <button id="add-contact-btn" class="bg-primary-color text-black w-10 h-10 rounded-full text-xl shadow-lg hover:bg-primary-dark transition">
+        <span class="material-icons">add</span>
+        </button>
+      </header>
+      <div id="contact-list-container" class="contact-list h-[calc(100vh-150px)] overflow-y-auto">
+        <!-- Contacts will be injected here -->
+      </div>
+    </section>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav fixed bottom-0 left-0 right-0 w-full max-w-md mx-auto bg-white flex justify-around p-3">
+      <button class="nav-item active text-gray-500 text-center" data-screen="home-screen">
+        <i class="fas fa-home text-xl"></i>
+        <span class="text-xs block">Home</span>
+      </button>
+      <button class="nav-item text-gray-500 text-center" data-screen="contacts-screen">
+        <i class="fas fa-users text-xl"></i>
+        <span class="text-xs block">Contacts</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Alert Modal -->
+  <div id="alert-modal" class="modal-container fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-6 z-50 opacity-0 pointer-events-none">
+    <div class="modal-content bg-white rounded-2xl shadow-xl p-8 text-center max-w-sm w-full transform scale-95">
+      <i id="modal-icon" class="fas fa-check-circle text-5xl text-green-500 mb-4"></i>
+      <h2 id="modal-title" class="text-2xl font-bold text-secondary-color mb-2">Alert Sent</h2>
+      <p id="modal-message" class="text-gray-600 mb-6">Your emergency contacts and location have been notified.</p>
+      <button id="modal-close-btn" class="bg-primary-color text-black font-semibold py-3 px-6 rounded-lg w-full hover:bg-primary-dark transition">OK</button>
+    </div>
+  </div>
+
+  <!-- Siren Audio -->
+  <audio id="siren-audio" src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg" loop></audio>
+</body>
+</html>
