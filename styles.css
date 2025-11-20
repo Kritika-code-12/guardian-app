@@ -48,6 +48,15 @@ body {
   transition: transform 0.3s ease;
 }
 
+#modal-close-btn {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+#modal-close-btn:hover {
+  background-color: var(--primary-dark);
+}
+
 .bottom-nav {
   box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
 }
@@ -64,4 +73,58 @@ body {
 .contact-list::-webkit-scrollbar-thumb {
   background-color: var(--primary-color);
   border-radius: 20px;
+}
+
+:root {
+  --profile-pink: #ffe4ec; /* soft light pink for initials */
+}
+
+/* Contact Card Layout */
+.contact-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: var(--light-bg);
+  padding: 1rem;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+}
+@media (min-width: 768px) {
+  .contact-card {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+/* Profile Initial Circle */
+.profile-pink {
+  background-color: #ff6b9a; /* darker pink */
+  color: white;
+  font-weight: bold;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+}
+
+/* Call + Delete Icons */
+.contact-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+.contact-actions a,
+.contact-actions button {
+  font-size: 1.2rem;
+  transition: color 0.2s ease;
+}
+.contact-actions a:hover {
+  color: #28a745;
+}
+.contact-actions button:hover {
+  color: var(--primary-color);
 }
