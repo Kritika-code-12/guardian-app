@@ -2,21 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Guardian - Personal Safety</title>
 
   <!-- Tailwind & Fonts -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
   <!-- Custom Styles -->
   <link rel="stylesheet" href="styles.css" />
   <script src="script.js" defer></script>
 </head>
-<body class="bg-light-bg">
-  <div id="app-container" class="w-full max-w-md mx-auto bg-white min-h-screen shadow-2xl">
+<body class="bg-light-bg font-poppins">
+  <div id="app-container" class="w-full max-w-screen-lg mx-auto bg-white min-h-screen shadow-2xl px-4">
+
     <!-- Home Screen -->
     <section id="home-screen" class="flex flex-col min-h-screen p-6 pb-24">
       <header class="flex justify-between items-center mb-6">
@@ -38,7 +39,7 @@
         <p id="sos-status" class="text-secondary-color font-medium h-6 mt-6 transition-opacity duration-300"></p>
       </main>
 
-      <div class="grid grid-cols-3 gap-4 text-center">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center mt-6">
         <button id="siren-btn" class="feature-card bg-light-bg p-4 rounded-2xl">
           <i class="fas fa-bullhorn text-3xl text-primary-color"></i>
           <p class="text-sm font-semibold text-secondary-color mt-2">Siren</p>
@@ -59,16 +60,17 @@
       <header class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold text-secondary-color">Emergency Contacts</h1>
         <button id="add-contact-btn" class="bg-primary-color text-black w-10 h-10 rounded-full text-xl shadow-lg hover:bg-primary-dark transition">
-        <span class="material-icons">add</span>
+          <span class="material-icons">add</span>
         </button>
       </header>
-      <div id="contact-list-container" class="contact-list h-[calc(100vh-150px)] overflow-y-auto">
+
+      <div id="contact-list-container" class="contact-list overflow-y-auto max-h-[70vh] px-1">
         <!-- Contacts will be injected here -->
       </div>
     </section>
 
     <!-- Bottom Navigation -->
-    <nav class="bottom-nav fixed bottom-0 left-0 right-0 w-full max-w-md mx-auto bg-white flex justify-around p-3">
+    <nav class="bottom-nav fixed bottom-0 left-0 right-0 w-full max-w-screen-lg mx-auto bg-white flex justify-around p-3">
       <button class="nav-item active text-gray-500 text-center" data-screen="home-screen">
         <i class="fas fa-home text-xl"></i>
         <span class="text-xs block">Home</span>
