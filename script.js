@@ -105,8 +105,8 @@ trackBtn.addEventListener('click', () => {
 });
 
 callBtn.addEventListener('click', () => {
-  showAlert('Calling Police', 'Opening dialer for 100...', 'fa-phone-alt', 'red-500');
-  window.location.href = 'tel:100';
+  showAlert('Calling Police', 'Opening dialer for 112...', 'fa-phone-alt', 'red-500');
+  window.location.href = 'tel:112';
 });
 
 // Alert modal logic
@@ -167,19 +167,26 @@ function loadContacts() {
 
   contacts.forEach((contact, index) => {
     const contactEl = document.createElement('div');
-    contactEl.className = 'bg-light-bg p-4 rounded-xl flex items-center justify-between mb-3';
+    contactEl.className = 'contact-card';
+
     contactEl.innerHTML = `
       <div class="flex items-center">
-        <div class="rounded-full w-12 h-12 flex items-center justify-center bg-primary-color text-white font-bold mr-4">${contact.name.charAt(0)}</div>
+        <div class="profile-pink">${contact.name.charAt(0).toUpperCase()}</div>
         <div>
           <p class="font-semibold text-secondary-color">${contact.name}</p>
           <p class="text-sm text-gray-500">${contact.phone}</p>
         </div>
       </div>
-      <button class="text-gray-400 hover:text-red-500 transition" onclick="deleteContact(${index})">
-        <i class="fas fa-trash-alt"></i>
-      </button>
+      <div class="contact-actions">
+        <a href="tel:${contact.phone}" title="Call ${contact.name}">
+          <i class="fas fa-phone-alt text-green-500 rotate-90"></i>
+        </a>
+        <button onclick="deleteContact(${index})" title="Delete ${contact.name}">
+          <i class="fas fa-trash-alt text-gray-400"></i>
+        </button>
+      </div>
     `;
+
     contactListContainer.appendChild(contactEl);
   });
 }
@@ -209,5 +216,4 @@ addContactBtn.addEventListener('click', () => {
 document.addEventListener('DOMContentLoaded', () => {
   updateTime();
   loadContacts();
-
 });
