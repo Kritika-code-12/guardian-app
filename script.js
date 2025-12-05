@@ -1,9 +1,7 @@
 // Element references
 const sosBtn = document.getElementById('sos-btn');
 const sosStatus = document.getElementById('sos-status');
-const sirenBtn = document.getElementById('siren-btn');
 const sirenAudio = document.getElementById('siren-audio');
-const trackBtn = document.getElementById('track-btn');
 const callBtn = document.getElementById('call-btn');
 const alertModal = document.getElementById('alert-modal');
 const modalIcon = document.getElementById('modal-icon');
@@ -40,8 +38,15 @@ const activateSOS = () => {
   sosBtn.classList.remove('animate-pulse');
   sosBtn.classList.add('bg-red-600');
   sosBtn.innerHTML = `<i class="fas fa-times text-4xl"></i><span class="text-sm opacity-90">CANCEL</span>`;
-  sosStatus.textContent = "Alert Sent! Authorities Notified.";
-  showAlert('SOS Activated!', 'Your location has been shared with emergency contacts and authorities.', 'fa-shield-alt', 'blue-500');
+  // Play the siren instead of showing an alert message
+  sosStatus.textContent = "Siren playing";
+  // Ensure siren state and UI are synced
+  isSirenOn = true;
+  try {
+    sirenAudio.play();
+  } catch (e) {
+    console.warn('Unable to play siren audio:', e);
+  }
 };
 
 const deactivateSOS = () => {
@@ -50,6 +55,12 @@ const deactivateSOS = () => {
   sosBtn.classList.remove('bg-red-600');
   sosBtn.innerHTML = `<span class="text-4xl font-bold">SOS</span><span class="text-sm opacity-90">HOLD FOR 3 SEC</span>`;
   sosStatus.textContent = "";
+  // Stop siren if SOS started it
+  if (isSirenOn) {
+    sirenAudio.pause();
+    sirenAudio.currentTime = 0;
+    isSirenOn = false;
+  }
 };
 
 // SOS events
@@ -59,25 +70,17 @@ sosBtn.addEventListener('mouseup', cancelSOS);
 sosBtn.addEventListener('mouseleave', cancelSOS);
 sosBtn.addEventListener('touchend', cancelSOS);
 sosBtn.addEventListener('click', () => {
-  if (isSOSActive) deactivateSOS();
+  // Toggle SOS on click: start siren when activating, stop when cancelling
+  if (isSOSActive) {
+    deactivateSOS();
+  } else {
+    activateSOS();
+  }
 });
 
 // Siren toggle
 let isSirenOn = false;
-
-sirenBtn.addEventListener('click', () => {
-  isSirenOn = !isSirenOn;
-  if (isSirenOn) {
-    sirenAudio.play();
-    sirenBtn.classList.add('bg-primary-color', 'text-white');
-    sirenBtn.querySelector('i').classList.replace('text-primary-color', 'text-white');
-  } else {
-    sirenAudio.pause();
-    sirenAudio.currentTime = 0;
-    sirenBtn.classList.remove('bg-primary-color', 'text-white');
-    sirenBtn.querySelector('i').classList.replace('text-white', 'text-primary-color');
-  }
-});
+// (Siren button removed from HTML) siren is controlled by SOS only
 
 // Real-time location tracking
 function startLocationTracking() {
@@ -99,10 +102,7 @@ function startLocationTracking() {
 }
 
 // Track Me & Call Police
-trackBtn.addEventListener('click', () => {
-  showAlert('Tracking Started', 'Your journey is now being shared live with your emergency contacts.', 'fa-route', 'indigo-500');
-  startLocationTracking();
-});
+// Track button removed from UI; keep `startLocationTracking` available if needed
 
 callBtn.addEventListener('click', () => {
   showAlert('Calling Police', 'Opening dialer for 112...', 'fa-phone-alt', 'red-500');
