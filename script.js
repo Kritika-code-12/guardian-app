@@ -83,7 +83,7 @@ sosBtn.addEventListener('click', () => {
 });
 
 // ==========================================
-// 3. Location & SMS Feature (The Free Hack)
+// 3. Location & SMS Feature 
 // ==========================================
 if (shareLocBtn) {
   shareLocBtn.addEventListener('click', () => {
@@ -131,26 +131,27 @@ function loadContacts() {
     const contactEl = document.createElement('div');
     contactEl.className = 'contact-card flex justify-between items-center p-4 bg-gray-50 rounded-xl mb-3';
 
-    contactEl.innerHTML = `
-      <div class="flex items-center">
-        <div class="w-10 h-10 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center font-bold mr-3">
-          ${contact.name.charAt(0).toUpperCase()}
-        </div>
-        <div>
-          <p class="font-semibold text-secondary-color">${contact.name}</p>
-          <p class="text-sm text-gray-500">${contact.phone}</p>
-        </div>
+  contactEl.innerHTML = `
+    <div class="flex items-center">
+      <div class="profile-pink">${contact.name.charAt(0).toUpperCase()}</div>
+      <div>
+        <p class="font-semibold text-secondary-color">${contact.name}</p>
+        <p class="text-sm text-gray-500">${contact.phone}</p>
       </div>
-      <div class="flex space-x-4">
-        <a href="tel:${contact.phone}"><i class="fas fa-phone-alt text-green-500"></i></a>
-        <button onclick="deleteContact(${index})"><i class="fas fa-trash-alt text-red-400"></i></button>
-      </div>
-    `;
+    </div>
+    <div class="contact-actions flex items-center gap-3">
+      <a href="tel:${contact.phone}" title="Call">
+        <i class="fas fa-phone-alt"></i>
+      </a>
+      <button onclick="deleteContact(${index})" title="Delete">
+        <i class="fas fa-trash-alt text-red-400"></i>
+      </button>
+    </div>
+  `;
     contactListContainer.appendChild(contactEl);
   });
 }
 
-// Attach to window so HTML onclick can find it
 window.deleteContact = function(index) {
   const contacts = JSON.parse(localStorage.getItem('guardianContacts') || '[]');
   contacts.splice(index, 1);
