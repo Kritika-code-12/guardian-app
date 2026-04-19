@@ -212,6 +212,44 @@ addContactBtn.addEventListener('click', () => {
   }
 });
 
+document.getElementById('share-loc-btn').addEventListener('click', () => {
+  // 1. Fetch your existing contacts list
+  const contacts = JSON.parse(localStorage.getItem('guardianContacts') || '[]');
+
+  if (contacts.length === 0) {
+    showAlert('No Contacts', 'Add your guardians in the Contacts tab first!', 'fa-user-friends', 'indigo-500');
+    return;
+  }
+
+  //location process
+  sosStatus.textContent = "Getting Location...";
+  
+  navigator.geolocation.getCurrentPosition(position => {
+    const { latitude, longitude } = position.coords;
+    
+    // Creating the standard Google Maps Link
+    const mapLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
+    const message = `EMERGENCY ALERT! I need help. My current location is: ${mapLink}`;
+
+    //Joining all phone numbers with a comma
+    const phoneList = contacts.map(c => c.phone).join(',');
+
+    //triggering the SMS app
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    const smsUrl = isIOS 
+      ? `sms:${phoneList}&body=${encodeURIComponent(message)}`
+      : `sms:${phoneList}?body=${encodeURIComponent(message)}`;
+
+    //redirection
+    sosStatus.textContent = "";
+    window.location.href = smsUrl;
+
+  }, (error) => {
+    sosStatus.textContent = "";
+    showAlert('GPS Error', 'Please enable location to send alerts.', 'fa-map-marker-alt', 'red-500');
+  }, { enableHighAccuracy: true });
+});
+
 // Load contacts on page load
 document.addEventListener('DOMContentLoaded', () => {
   updateTime();
