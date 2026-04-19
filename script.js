@@ -141,9 +141,13 @@ function loadContacts() {
           <p class="text-sm text-gray-500">${contact.phone}</p>
         </div>
       </div>
-      <div class="flex space-x-4">
-        <a href="tel:${contact.phone}"><i class="fas fa-phone-alt text-green-500"></i></a>
-        <button onclick="deleteContact(${index})"><i class="fas fa-trash-alt text-red-400"></i></button>
+      <div class="contact-actions">
+        <a href="tel:${contact.phone}">
+          <i class="fas fa-phone-alt"></i>
+        </a>
+        <button onclick="deleteContact(${index})">
+          <i class="fas fa-trash-alt"></i>
+        </button>
       </div>
     `;
     contactListContainer.appendChild(contactEl);
